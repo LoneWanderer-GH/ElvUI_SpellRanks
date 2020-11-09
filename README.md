@@ -9,3 +9,9 @@ A simple ElvUI plugin to add spellrank to Classic ElvUI's cast bar.
 
 Download [Curse page](https://www.curseforge.com/wow/addons/elvui-spellranks)
 
+## Screenshots
+
+![](./assets/ElvUI Spell Ranks_Screen001.png)
+![](./assets/ElvUI Spell Ranks_Screen002.png)
+
+
