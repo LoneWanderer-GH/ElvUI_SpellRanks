@@ -16,4 +16,3 @@ Download [Curse page](https://www.curseforge.com/wow/addons/elvui-spellranks)
 
 ![](./assets/ElvUI Spell Ranks_Screen002.png)
 
-
