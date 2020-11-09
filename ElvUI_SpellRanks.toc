@@ -6,7 +6,13 @@
 #@end-non-retail@
 ## Version: @project-version@
 
-## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r by LoneWanderer-GH
+#@debug@
+## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r vDEV by LoneWanderer-GH
+#@end-debug@
+
+#@non-debug@
+# ## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r v @project-version@ by LoneWanderer-GH
+#@end-non-debug@
 ## Notes: Adds spell rank to cast bar text
 
 ## Author: LoneWanderer-GH
@@ -15,7 +21,7 @@
 
 ## LoadManagers: AddonLoader
 
-## X-Curse-Project-ID: TBD
+## X-Curse-Project-ID: 418794
 
 ## X-LoadOn-Always: delayed
 
