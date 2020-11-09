@@ -1,0 +1,24 @@
+name: Classic-Build
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v1
+
+    - uses: BigWigsMods/packager@master
+      name: Build Classic and upload to CurseForge
+      with:
+        args: -l -g 1.13.5
+
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+

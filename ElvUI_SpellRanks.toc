@@ -1,0 +1,24 @@
+#@retail@
+## Interface: 11303
+#@end-retail@
+#@non-retail@
+# ## Interface: 11303
+#@end-non-retail@
+## Version: @project-version@
+
+## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r by LoneWanderer-GH
+## Notes: Adds spell rank to cast bar text
+
+## Author: LoneWanderer-GH
+
+## RequiredDeps: ElvUI
+
+## LoadManagers: AddonLoader
+
+## X-Curse-Project-ID: TBD
+
+## X-LoadOn-Always: delayed
+
+# packaged on @project-date-integer@
+
+ElvUI_SpellRanks.lua
