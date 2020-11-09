@@ -42,9 +42,9 @@ function ElvUI_Classic_CastBarSpellRanks:Update()
     self.player_cast_bar.showRank = E.db.ElvUI_Classic_CastBarSpellRanks.showRank
 end
 
-function ElvUI_Classic_CastBarSpellRanks:InsertOptions(self)
+function ElvUI_Classic_CastBarSpellRanks:InsertOptions()
     --@debug@
-    self:logger("InsertOptions")
+    ElvUI_Classic_CastBarSpellRanks:logger("InsertOptions") -- using self triggers an error
     --@end-debug@
     E.Options.args.ElvUI_Classic_CastBarSpellRanks = {
         order       = 1000,
