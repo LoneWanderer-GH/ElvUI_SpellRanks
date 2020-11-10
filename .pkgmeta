@@ -1,2 +1,4 @@
 
-
+ignore:
+    - assets
+    - _config.yml
