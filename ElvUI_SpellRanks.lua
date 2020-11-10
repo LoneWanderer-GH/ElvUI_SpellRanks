@@ -9,7 +9,7 @@ local UF                              = E:GetModule('UnitFrames');
 local addon_version                   = "DEV_VERSION"
 --@non-debug@
 
---[===[@debug
+--[===[@non-debug
 local addon_version                   = "@project-version@"
 --@end-non-debug@]===]
 
@@ -20,7 +20,6 @@ local MAX_SUPPORTED_CLASSIC_VERSION   = 19999
 local IS_CLASSIC                      = (build_toc_version <= MAX_SUPPORTED_CLASSIC_VERSION)
 
 P["ElvUI_Classic_CastBarSpellRanks"]  = {
-    --["DebugMode"] = true,
     ["showRank"] = true,
 }
 
@@ -101,7 +100,7 @@ local function CustomPostCastStart(self, unit)
     --@end-debug@
     if self.showRank then
         --[===[@non-debug@
-        --local spellRank = GetSpellSubtext(self.spellID)
+        local spellRank = GetSpellSubtext(self.spellID)
         --@end-non-debug@]===]
         if spellRank and spellRank ~= "" then
             --@debug@
