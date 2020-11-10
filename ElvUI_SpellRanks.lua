@@ -9,9 +9,9 @@ local UF                              = E:GetModule('UnitFrames');
 local addon_version                   = "DEV_VERSION"
 --@non-debug@
 
---[===[@non-debug
+--[===[@non-debug@
 local addon_version                   = "@project-version@"
---@end-non-debug]===]
+--@end-non-debug@]===]
 
 local ORANGEY, LIGHTRED               = '|cffFF4500', '|cffff6060'
 local build_toc_version               = select(4, GetBuildInfo())
