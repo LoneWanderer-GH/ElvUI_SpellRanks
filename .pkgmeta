@@ -1,3 +1,4 @@
-required-dependencies:
-    - ElvUI
 
+ignore:
+    - assets
+    - _config.yml
