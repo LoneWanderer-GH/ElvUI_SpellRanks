@@ -7,7 +7,7 @@ local UF                              = E:GetModule('UnitFrames');
 
 --@debug@
 local addon_version                   = "DEV_VERSION"
---@non-debug@
+--@end-debug@
 
 --[===[@non-debug@
 local addon_version                   = "@project-version@"
