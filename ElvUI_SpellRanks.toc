@@ -1,9 +1,5 @@
-#@retail@
-## Interface: 11305
-#@end-retail@
-#@non-retail@
-# ## Interface: 11305
-#@end-non-retail@
+## Interface: 11307
+## Interface-Classic: 11307
 ## Version: @project-version@
 
 #@debug@
