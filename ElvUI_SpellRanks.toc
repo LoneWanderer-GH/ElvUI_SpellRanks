@@ -1,14 +1,15 @@
 ## Interface: 11307
 ## Interface-Classic: 11307
+## Interface-BCC: 20501
 ## Version: @project-version@
 
-#@debug@
-## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r vDEV by LoneWanderer-GH
-#@end-debug@
+#@version-classic@
+## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Classic)|r v @project-version@ by LoneWanderer-GH
+#@end-version-classic@
+#@version-bcc@
+## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Burning Crusade)|r v @project-version@ by LoneWanderer-GH
+#@end-version-bcc@
 
-#@non-debug@
-# ## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks|r v @project-version@ by LoneWanderer-GH
-#@end-non-debug@
 ## Notes: Adds spell rank to cast bar text
 
 ## Author: LoneWanderer-GH

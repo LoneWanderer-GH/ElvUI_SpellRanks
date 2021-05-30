@@ -1,25 +1,35 @@
-local E, L, V, P, G                   = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local ElvUI_Classic_CastBarSpellRanks = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0');
-local EP                              = LibStub("LibElvUIPlugin-1.0")
-local addonName, addonTable           = ... --See http://www.wowinterface.com/forums/showthread.php?t=51502&p=304704&postcount=2
+local E, L, V, P, G                           = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0');
+local EP                                      = LibStub("LibElvUIPlugin-1.0")
+local addonName, addonTable                   = ... --See http://www.wowinterface.com/forums/showthread.php?t=51502&p=304704&postcount=2
 
-local UF                              = E:GetModule('UnitFrames');
+local UF                                      = E:GetModule('UnitFrames');
 
 --@debug@
-local addon_version                   = "DEV_VERSION"
+local addon_version                           = "DEV_VERSION"
 --@end-debug@
 
 --[===[@non-debug@
 local addon_version                   = "@project-version@"
 --@end-non-debug@]===]
 
-local ORANGEY, LIGHTRED               = '|cffFF4500', '|cffff6060'
-local build_toc_version               = select(4, GetBuildInfo())
--- version numbering is X.XX.XX shorten in param 4 as XXXXX
-local MAX_SUPPORTED_CLASSIC_VERSION   = 19999
-local IS_CLASSIC                      = (build_toc_version <= MAX_SUPPORTED_CLASSIC_VERSION)
+local ORANGEY, LIGHTRED                       = '|cffFF4500', '|cffff6060'
 
-P["ElvUI_Classic_CastBarSpellRanks"]  = {
+--
+local version, build, date, build_toc_version = GetBuildInfo()
+local major_version                           = floor(build_toc_version / 10000)
+
+--@version-classic@
+local MAX_SUPPORTED_VERSION                   = 19999
+--@end-version-classic@
+
+--@version-bcc@
+local MAX_SUPPORTED_VERSION                   = 20501
+--@end-version-bcc@
+
+local MAX_MAJOR_VERSION                       = floor(MAX_SUPPORTED_VERSION / 10000)
+
+P["ElvUI_Classic_CastBarSpellRanks"]          = {
     ["showRank"] = true,
 }
 
@@ -96,7 +106,7 @@ local function CustomPostCastStart(self, unit)
     local plugin = self.ElvUI_Classic_CastBarSpellRanks
     plugin:logger('custom UF:PostCastStart')
     local spellRank = GetSpellSubtext(self.spellID)
-    plugin:logger(format('custom UF:PostCastStart - spell rank is %s', (spellRank or "none")))
+    plugin:logger(format('custom UF:PostCastStart - spell rank is %s', (tostring(spellRank) or "none")))
     --@end-debug@
     if self.showRank then
         --[===[@non-debug@
@@ -115,18 +125,21 @@ local function CustomPostCastStart(self, unit)
 end
 
 function ElvUI_Classic_CastBarSpellRanks:VersionCheck()
-    if not IS_CLASSIC then
-        local version, build, date, tocversion = GetBuildInfo()
-        self:logger(format("!!! %sBEWARE %s!!!!", LIGHTRED, "|r"))
-
-        self:logger(format("%s%s v%s hasn't been updated to support WoW v |r%s - %sbuild|r %s- %sdate|r %s - %sversion number|r %s", ORANGEY, addonName, addon_version, version, ORANGEY, build, ORANGEY, date, ORANGEY, tocversion))
-        self:logger(format("%sPlease file any bugs you find @ https://github.com/LoneWanderer-GH/%s/issues", ORANGEY, addonName))
-        self:logger(format("%sPlease be precise and provide as much intel as needed (PTR realm, release, beta etc.)", ORANGEY))
-        if build_toc_version > MAX_SUPPORTED_CLASSIC_VERSION then
-            self:logger(format("%sAssuming unsupported version is classic (%d)", LIGHTRED, MAX_SUPPORTED_CLASSIC_VERSION))
-            IS_CLASSIC = true
-        end
+    if build_toc_version > MAX_SUPPORTED_VERSION or (major_version < MAX_MAJOR_VERSION) then
+        print(format("!!! %sBEWARE %s!!!!", LIGHTRED, "|r"))
+        local addon_name_and_version_str = format("%s%s v%s", ORANGEY, addonName, addon_version)
+        local build_str                  = format("%sbuild|r %s", ORANGEY, build)
+        local date_str                   = format("%sdate|r %s", ORANGEY, date)
+        local version_nb_str             = format("%sversion number|r %s", ORANGEY, build_toc_version)
+        print(format("%s hasn't been updated to support WoW v |r%s - %s - %s - %s",
+                     addon_name_and_version_str, version, build_str, date_str, version_nb_str
+        ))
+        print(format("%sPlease file any bugs you find @ |rhttps://github.com/LoneWanderer-GH/%s/issues", ORANGEY, addonName))
+        print(format("%sPlease be precise and provide as much intel as needed (PTR realm, release, beta etc.)", ORANGEY))
+        print(format("%sMax supported version is |r%s", ORANGEY, MAX_SUPPORTED_VERSION))
+        return false
     end
+    return true
 end
 
 function ElvUI_Classic_CastBarSpellRanks:Initialize()
@@ -134,7 +147,8 @@ function ElvUI_Classic_CastBarSpellRanks:Initialize()
     self:logger('Initialize')
     --@end-debug@
 
-    if IS_CLASSIC then
+    local check = self:VersionCheck()
+    if check then
         if not E.db.ElvUI_Classic_CastBarSpellRanks then
             E.db.ElvUI_Classic_CastBarSpellRanks = {}
         end
@@ -174,7 +188,6 @@ function ElvUI_Classic_CastBarSpellRanks:Initialize()
         EP:RegisterPlugin(addonName, self.InsertOptions)
         self:Update()
     else
-
     end
 end
 

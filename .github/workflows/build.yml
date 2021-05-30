@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  build:
+  build-classic:
 
     runs-on: ubuntu-latest
 
@@ -22,3 +22,19 @@ jobs:
     env:
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
 
+
+  build-bc:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - uses: BigWigsMods/packager@master
+        name: Build Classic and upload to CurseForge
+        with:
+          args: -l -g bcc
+
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
