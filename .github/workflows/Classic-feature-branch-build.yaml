@@ -112,7 +112,7 @@ jobs:
           name: ${{ env.ARTIFACT_NAME_CLASSIC }}
 
       - name: Zip dir
-        run: ls && zip -r "Classic-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
+        run: ls && zip -r "Classic-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "Classic-${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
 
       - name: Get latest release data
         id: LatestRelease
@@ -155,7 +155,7 @@ jobs:
           name: ${{ env.ARTIFACT_NAME_BC }}
 
       - name: Zip dir
-        run: ls && zip -r "BC-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
+        run: ls && zip -r "BC-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "BC-${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
 
       - name: Get latest release data
         id: LatestRelease

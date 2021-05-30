@@ -1,35 +1,35 @@
-name: Classic-Build on dev branch push
-
-on:
-  push:
-    branches-ignore:
-      - master
-
-jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - uses: actions/checkout@v1
-
-    - uses: BigWigsMods/packager@master
-      name: Build Classic using BigWigsMods/packager@master NO UPLOAD
-      with:
-        args: -dl -g 1.13.5
-
-    - name: Check created files
-      shell: bash
-      run: ls -aRl
-      working-directory: ./.release
-
-    - name: Get zip info
-      shell: bash
-      run: zipinfo "*.zip"
-      working-directory: ./.release
-
-    env:
-      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+#name: Classic-Build on dev branch push
+#
+#on:
+#  push:
+#    branches-ignore:
+#      - master
+#
+#jobs:
+#
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#
+#    - uses: actions/checkout@v1
+#
+#    - uses: BigWigsMods/packager@master
+#      name: Build Classic using BigWigsMods/packager@master NO UPLOAD
+#      with:
+#        args: -dl -g 1.13.5
+#
+#    - name: Check created files
+#      shell: bash
+#      run: ls -aRl
+#      working-directory: ./.release
+#
+#    - name: Get zip info
+#      shell: bash
+#      run: zipinfo "*.zip"
+#      working-directory: ./.release
+#
+#    env:
+#      CF_API_KEY: ${{ secrets.CF_API_KEY }}
 
