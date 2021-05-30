@@ -114,12 +114,12 @@ jobs:
       - name: Zip dir
         run: ls && zip -r "Classic-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "Classic-${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
 
-      - name: Get latest release data
-        id: LatestRelease
-        uses: pozetroninc/github-action-get-latest-release@master
-        with:
-          repository: ${{ github.repository }}
-          excludes: prerelease, draft
+#      - name: Get latest release data
+#        id: LatestRelease
+#        uses: pozetroninc/github-action-get-latest-release@master
+#        with:
+#          repository: ${{ github.repository }}
+#          excludes: prerelease, draft
 
       - name: Send Discord message with built file
         uses: appleboy/discord-action@master
@@ -157,12 +157,12 @@ jobs:
       - name: Zip dir
         run: ls && zip -r "BC-${{ github.event.repository.name }}-${{ github.event.after }}.zip" "BC-${{ github.event.repository.name }}-${{ github.event.after }}/${{ github.event.repository.name }}"
 
-      - name: Get latest release data
-        id: LatestRelease
-        uses: pozetroninc/github-action-get-latest-release@master
-        with:
-          repository: ${{ github.repository }}
-          excludes: prerelease, draft
+#      - name: Get latest release data
+#        id: LatestRelease
+#        uses: pozetroninc/github-action-get-latest-release@master
+#        with:
+#          repository: ${{ github.repository }}
+#          excludes: prerelease, draft
 
       - name: Send Discord message with built file
         uses: appleboy/discord-action@master
