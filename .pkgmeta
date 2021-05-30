@@ -2,4 +2,5 @@ package-as: ElvUI_SpellRanks
 
 ignore:
     - assets
-    - _config.yml
+    - _config.yml+
+    - test_build_all.sh
