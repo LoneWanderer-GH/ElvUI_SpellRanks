@@ -106,7 +106,7 @@ local function CustomPostCastStart(self, unit)
     local plugin = self.ElvUI_Classic_CastBarSpellRanks
     plugin:logger('custom UF:PostCastStart')
     local spellRank = GetSpellSubtext(self.spellID)
-    plugin:logger(format('custom UF:PostCastStart - spell rank is %s', tostring(spellRank)))
+    plugin:logger(format('custom UF:PostCastStart - spell rank is %s', (tostring(spellRank) or "none")))
     --@end-debug@
     if self.showRank then
         --[===[@non-debug@
