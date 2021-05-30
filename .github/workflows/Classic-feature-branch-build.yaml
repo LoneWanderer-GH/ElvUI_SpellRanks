@@ -124,8 +124,8 @@ jobs:
       - name: Send Discord message with built file
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           file: "Classic-${{ github.event.repository.name }}-${{ github.event.after }}.zip"
           message: "** CLASSIC New pre-release pushed**. `${{ github.event.ref }}`\n
           _This package has been built automatically and comes without warranty._
@@ -134,8 +134,8 @@ jobs:
       - name: Post changelog
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           message: "**Changelog since `${{ steps.LatestRelease.outputs.release }}` (latest release)**"
           file: CHANGELOG.md
 
@@ -167,8 +167,8 @@ jobs:
       - name: Send Discord message with built file
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_COOLLINE_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           file: "BC-${{ github.event.repository.name }}-${{ github.event.after }}.zip"
           message: "** BC New pre-release pushed**. `${{ github.event.ref }}`\n
           _This package has been built automatically and comes without warranty._
