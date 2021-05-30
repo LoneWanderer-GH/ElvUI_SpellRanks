@@ -131,13 +131,13 @@ jobs:
           _This package has been built automatically and comes without warranty._
           "
 
-      - name: Post changelog
-        uses: appleboy/discord-action@master
-        with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: "**Changelog since `${{ steps.LatestRelease.outputs.release }}` (latest release)**"
-          file: CHANGELOG.md
+#      - name: Post changelog
+#        uses: appleboy/discord-action@master
+#        with:
+#          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+#          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+#          message: "**Changelog since `${{ steps.LatestRelease.outputs.release }}` (latest release)**"
+#          file: CHANGELOG.md
 
 
   discord-push-bc:
