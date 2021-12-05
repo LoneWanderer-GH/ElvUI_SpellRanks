@@ -1,6 +1,6 @@
 ## Interface: 11307
-## Interface-Classic: 11307
-## Interface-BCC: 20501
+## Interface-Classic: 11401
+## Interface-BCC: 20502
 ## Version: @project-version@
 
 #@version-classic@

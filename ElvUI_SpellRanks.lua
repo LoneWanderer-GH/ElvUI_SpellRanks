@@ -1,9 +1,9 @@
 local E, L, V, P, G                           = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0');
+local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0', 'AceTimer-3.0')
 local EP                                      = LibStub("LibElvUIPlugin-1.0")
 local addonName, addonTable                   = ... --See http://www.wowinterface.com/forums/showthread.php?t=51502&p=304704&postcount=2
 
-local UF                                      = E:GetModule('UnitFrames');
+local UF                                      = E:GetModule('UnitFrames')
 
 --@debug@
 local addon_version                           = "DEV_VERSION"
@@ -24,7 +24,7 @@ local MAX_SUPPORTED_VERSION                   = 19999
 --@end-version-classic@
 
 --@version-bcc@
-local MAX_SUPPORTED_VERSION                   = 20501
+local MAX_SUPPORTED_VERSION                   = 20502
 --@end-version-bcc@
 
 local MAX_MAJOR_VERSION                       = floor(MAX_SUPPORTED_VERSION / 10000)
@@ -35,6 +35,7 @@ P["ElvUI_Classic_CastBarSpellRanks"]          = {
 
 E:RegisterModule(ElvUI_Classic_CastBarSpellRanks:GetName())
 
+--@debug@
 function ElvUI_Classic_CastBarSpellRanks:logger(message)
     local s = format("|cff1784d1%s|r |cff00b3ff%s|cffff7d0a%s|r %s", "ElvUI", "Spell", "Rank", message)
     if DLAPI then
@@ -43,12 +44,15 @@ function ElvUI_Classic_CastBarSpellRanks:logger(message)
         self:Print(s)
     end
 end
+--@end-debug@
 
 function ElvUI_Classic_CastBarSpellRanks:Update()
     --@debug@
     self:logger('Update')
     --@end-debug@
-    self.player_cast_bar.showRank = E.db.ElvUI_Classic_CastBarSpellRanks.showRank
+    if self.player_cast_bar then
+        self.player_cast_bar.showRank = E.db.ElvUI_Classic_CastBarSpellRanks.showRank
+    end
 end
 
 function ElvUI_Classic_CastBarSpellRanks:InsertOptions()
@@ -142,38 +146,32 @@ function ElvUI_Classic_CastBarSpellRanks:VersionCheck()
     return true
 end
 
-function ElvUI_Classic_CastBarSpellRanks:Initialize()
+
+function ElvUI_Classic_CastBarSpellRanks:do_patch()
     --@debug@
-    self:logger('Initialize')
+    self:logger('do_patch')
     --@end-debug@
 
-    local check = self:VersionCheck()
-    if check then
-        if not E.db.ElvUI_Classic_CastBarSpellRanks then
-            E.db.ElvUI_Classic_CastBarSpellRanks = {}
-        end
-
+    if not self.patch_done then
         --@debug@
         self:logger('Finding player frame and castbar')
         --@end-debug@
 
-        local player_unit_frame = UF["player"]
+
+        local player_unit_frame = UF.player
         self.player_cast_bar    = player_unit_frame.Castbar --castBar
 
         --@debug@
         self:logger('Saving previous UF:PostCastStart')
         --@end-debug@
+
         self.player_cast_bar.prev_post_cast_start = self.player_cast_bar.PostCastStart
 
         --@debug@
         self:logger('Patching UF:PostCastStart')
         --@end-debug@
-        self.player_cast_bar.ElvUI_Classic_CastBarSpellRanks = self
 
-        --@debug@
-        self:logger('initialize rank display to false by default')
-        --@end-debug@
-        self.player_cast_bar.showRank = false
+        self.player_cast_bar.ElvUI_Classic_CastBarSpellRanks = self
 
         --@debug@
         self:logger('Do the patch')
@@ -185,8 +183,33 @@ function ElvUI_Classic_CastBarSpellRanks:Initialize()
         self:logger('Patching UF:PostCastStart --> DONE')
         --@end-debug@
 
+        self.patch_done = true
+
+        --@debug@
+        self:logger('initialize rank display to false by default')
+        --@end-debug@
+
+        self.player_cast_bar.showRank = E.db.ElvUI_Classic_CastBarSpellRanks.showRank
+        self:Print("Patch done")
+    end
+end
+
+function ElvUI_Classic_CastBarSpellRanks:Initialize()
+    --@debug@
+    self:logger('Initialize')
+    --@end-debug@
+
+    local check = self:VersionCheck()
+    if check then
+        if not E.db.ElvUI_Classic_CastBarSpellRanks then
+            E.db.ElvUI_Classic_CastBarSpellRanks = {}
+        end
+
         EP:RegisterPlugin(addonName, self.InsertOptions)
         self:Update()
+
+        self:ScheduleTimer(self.do_patch, 8, self)
+
     else
     end
 end
