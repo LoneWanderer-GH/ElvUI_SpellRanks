@@ -1,14 +1,9 @@
 local E, L, V, P, G                           = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
---@version-classic@
-local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0');
---@end-version-classic@
---@version-bcc@
-local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0', 'AceTimer-3.0');
---@end-version-bcc@
+local ElvUI_Classic_CastBarSpellRanks         = E:NewModule('ElvUI_Classic_CastBarSpellRanks', 'AceConsole-3.0', 'AceTimer-3.0')
 local EP                                      = LibStub("LibElvUIPlugin-1.0")
 local addonName, addonTable                   = ... --See http://www.wowinterface.com/forums/showthread.php?t=51502&p=304704&postcount=2
 
-local UF                                      = E:GetModule('UnitFrames');
+local UF                                      = E:GetModule('UnitFrames')
 
 --@debug@
 local addon_version                           = "DEV_VERSION"
@@ -210,16 +205,11 @@ function ElvUI_Classic_CastBarSpellRanks:Initialize()
             E.db.ElvUI_Classic_CastBarSpellRanks = {}
         end
 
-        --@version-classic@
-        self:do_patch()
-        --@end-version-classic@
-
         EP:RegisterPlugin(addonName, self.InsertOptions)
         self:Update()
 
-        --@version-bcc@
         self:ScheduleTimer(self.do_patch, 8, self)
-        --@end-version-bcc@
+
     else
     end
 end
