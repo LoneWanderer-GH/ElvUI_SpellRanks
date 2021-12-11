@@ -1,12 +1,14 @@
-## Interface: 11307
+## Interface: 11401
 ## Interface-Classic: 11401
 ## Interface-BCC: 20502
 ## Version: @project-version@
 
 #@version-classic@
+## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Classic)|r v @project-version@ by LoneWanderer-GH
 ## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Classic)|r v @project-version@ by LoneWanderer-GH
 #@end-version-classic@
 #@version-bcc@
+## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Burning Crusade)|r v @project-version@ by LoneWanderer-GH
 ## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Burning Crusade)|r v @project-version@ by LoneWanderer-GH
 #@end-version-bcc@
 
