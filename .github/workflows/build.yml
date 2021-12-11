@@ -2,7 +2,7 @@ name: Classic-Build
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
 
@@ -12,12 +12,19 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - uses: BigWigsMods/packager@master
-      name: Build Classic and upload to CurseForge
-      with:
-        args: -l -g classic
+      - uses: BigWigsMods/packager@master
+        name: Build Classic and upload to CurseForge
+        with:
+          args: -l -g classic
+
+      - name: Post changelog
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: "** New Classic release ${{ env.RELEASE_VERSION }} pushed to CurseForge see https://www.curseforge.com/wow/addons/elvui-spellranks**"
 
     env:
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
@@ -35,6 +42,13 @@ jobs:
         name: Build Classic and upload to CurseForge
         with:
           args: -l -g bcc
+
+      - name: Post changelog
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: "** New BC release ${{ env.RELEASE_VERSION }} pushed to CurseForge see https://www.curseforge.com/wow/addons/elvui-spellranks**"
 
     env:
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
