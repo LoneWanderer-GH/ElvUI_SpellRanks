@@ -24,7 +24,7 @@ local MAX_SUPPORTED_VERSION                   = 19999
 --@end-version-classic@
 
 --@version-bcc@
-local MAX_SUPPORTED_VERSION                   = 20502
+local MAX_SUPPORTED_VERSION                   = 20599
 --@end-version-bcc@
 
 local MAX_MAJOR_VERSION                       = floor(MAX_SUPPORTED_VERSION / 10000)
