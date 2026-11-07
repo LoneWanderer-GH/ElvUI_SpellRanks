@@ -4,6 +4,10 @@ local EP                                      = LibStub("LibElvUIPlugin-1.0")
 local addonName, addonTable                   = ... --See http://www.wowinterface.com/forums/showthread.php?t=51502&p=304704&postcount=2
 
 local UF                                      = E:GetModule('UnitFrames')
+local spell_subtext                           = C_Spell and C_Spell.GetSpellSubtext
+if type(spell_subtext) ~= "function" then
+    spell_subtext = GetSpellSubtext
+end
 
 --@debug@
 local addon_version                           = "DEV_VERSION"
@@ -26,6 +30,10 @@ local MAX_SUPPORTED_VERSION                   = 19999
 --@version-bcc@
 local MAX_SUPPORTED_VERSION                   = 20599
 --@end-version-bcc@
+
+--@version-forever@
+local MAX_SUPPORTED_VERSION                   = 16999
+--@end-version-forever@
 
 local MAX_MAJOR_VERSION                       = floor(MAX_SUPPORTED_VERSION / 10000)
 
@@ -109,12 +117,12 @@ local function CustomPostCastStart(self, unit)
     --@debug@
     local plugin = self.ElvUI_Classic_CastBarSpellRanks
     plugin:logger('custom UF:PostCastStart')
-    local spellRank = GetSpellSubtext(self.spellID)
+    local spellRank = spell_subtext(self.spellID)
     plugin:logger(format('custom UF:PostCastStart - spell rank is %s', (tostring(spellRank) or "none")))
     --@end-debug@
     if self.showRank then
         --[===[@non-debug@
-        local spellRank = GetSpellSubtext(self.spellID)
+        local spellRank = spell_subtext(self.spellID)
         --@end-non-debug@]===]
         if spellRank and spellRank ~= "" then
             --@debug@
@@ -129,6 +137,11 @@ local function CustomPostCastStart(self, unit)
 end
 
 function ElvUI_Classic_CastBarSpellRanks:VersionCheck()
+    if type(spell_subtext) ~= "function" then
+        self:Print("Spell rank API is unavailable. This WoW client is not supported.")
+        return false
+    end
+
     if build_toc_version > MAX_SUPPORTED_VERSION or (major_version < MAX_MAJOR_VERSION) then
         print(format("!!! %sBEWARE %s!!!!", LIGHTRED, "|r"))
         local addon_name_and_version_str = format("%s%s v%s", ORANGEY, addonName, addon_version)
@@ -159,13 +172,31 @@ function ElvUI_Classic_CastBarSpellRanks:do_patch()
 
 
         local player_unit_frame = UF.player
-        self.player_cast_bar    = player_unit_frame.Castbar --castBar
+        local player_cast_bar   = player_unit_frame and player_unit_frame.Castbar
+
+        if not player_cast_bar then
+            self:Print("Unable to patch the player cast bar. Reload the UI after ElvUI has initialized.")
+            return
+        end
+
+        local previous_post_cast_start = player_cast_bar.PostCastStart
+        local cast_bar_text = player_cast_bar.Text
+        if type(previous_post_cast_start) ~= "function"
+            or not cast_bar_text
+            or type(cast_bar_text.GetText) ~= "function"
+            or type(cast_bar_text.SetText) ~= "function"
+        then
+            self:Print("Unable to patch the player cast bar. The ElvUI cast bar API is unsupported.")
+            return
+        end
+
+        self.player_cast_bar = player_cast_bar
 
         --@debug@
         self:logger('Saving previous UF:PostCastStart')
         --@end-debug@
 
-        self.player_cast_bar.prev_post_cast_start = self.player_cast_bar.PostCastStart
+        self.player_cast_bar.prev_post_cast_start = previous_post_cast_start
 
         --@debug@
         self:logger('Patching UF:PostCastStart')
@@ -213,4 +244,3 @@ function ElvUI_Classic_CastBarSpellRanks:Initialize()
     else
     end
 end
-

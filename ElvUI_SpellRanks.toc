@@ -1,6 +1,8 @@
-## Interface: 11401
-## Interface-Classic: 11401
-## Interface-BCC: 20503
+## Interface: 11509
+## Interface-Classic: 11509
+## Interface-BCC: 20506
+## Interface-Forever: 16001
+## X-WoWAddonTooling-Targets: classic, bcc, forever
 ## Version: @project-version@
 
 #@version-classic@
@@ -11,6 +13,10 @@
 ## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Burning Crusade)|r v @project-version@ by LoneWanderer-GH
 ## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (Burning Crusade)|r v @project-version@ by LoneWanderer-GH
 #@end-version-bcc@
+#@version-forever@
+## Title: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (WoW Forever - Experimental)|r v @project-version@ by LoneWanderer-GH
+## Notes: |cff1784d1ElvUI|r |cff00b3ffSpell|cff00ffdaRanks (WoW Forever - Experimental)|r v @project-version@ by LoneWanderer-GH
+#@end-version-forever@
 
 ## Notes: Adds spell rank to cast bar text
 
